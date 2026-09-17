@@ -1,0 +1,19 @@
+name: Deploy Infra
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  call-central-pipeline:
+    uses: azimkayz/omni-tech-devops-library/.github/workflows/terraform-deploy.yml@main
+    with:
+      environment: "production"
+      resource_group: "rg-project-alpha-prod"
+      working_directory: "./infra"
+      apply: ${{ github.event_name == 'push' }}
+    secrets:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
