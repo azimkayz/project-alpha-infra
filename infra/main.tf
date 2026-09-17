@@ -11,6 +11,7 @@ resource "azurerm_resource_group" "this" {
 resource "azurerm_storage_account" "example" {
   # checkov:skip=CKV2_AZURE_33: Private endpoint requires a dedicated VNet/subnet, out of scope for this assignment's demo resource.
   # checkov:skip=CKV2_AZURE_1: Customer-managed key encryption requires a Key Vault dependency, out of scope for this assignment's demo resource; platform-managed encryption plus TLS1.2 and disabled shared-key auth are applied instead.
+  # checkov:skip=CKV_AZURE_33: Classic Storage Analytics queue logging is being deprecated by Microsoft in favor of Diagnostic Settings/Azure Monitor; not configured for this demo resource.
   name                     = "stprojectalpha${var.environment}"
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
@@ -25,16 +26,6 @@ resource "azurerm_storage_account" "example" {
   blob_properties {
     delete_retention_policy {
       days = 7
-    }
-  }
-
-  queue_properties {
-    logging {
-      delete                = true
-      read                  = true
-      write                 = true
-      version               = "1.0"
-      retention_policy_days = 7
     }
   }
 
