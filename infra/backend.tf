@@ -13,6 +13,8 @@ terraform {
     storage_account_name = "omnitechtfstate"
     container_name       = "tfstate"
     key                  = "project-alpha.terraform.tfstate"
+    use_oidc             = true
+    use_azuread_auth     = true
   }
 }
 
