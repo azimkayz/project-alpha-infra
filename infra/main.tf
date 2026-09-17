@@ -16,7 +16,7 @@ resource "azurerm_storage_account" "example" {
   resource_group_name      = azurerm_resource_group.this.name
   location                 = azurerm_resource_group.this.location
   account_tier             = "Standard"
-  account_replication_type = "ZRS"
+  account_replication_type = "GRS"
 
   min_tls_version                 = "TLS1_2"
   public_network_access_enabled   = false
