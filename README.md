@@ -32,3 +32,27 @@ Configured under **Settings → Secrets and variables → Actions**:
 - `AZURE_SUBSCRIPTION_ID`
 
 These correspond to an Azure AD App Registration with a federated credential scoped to this repo (`repo:azimkayz/project-alpha-infra:ref:refs/heads/main`), granted Contributor on `rg-project-alpha-prod` and Storage Blob Data Contributor on the shared Terraform state storage account.
+
+## GitHub Actions Execution Evidence
+
+The following screenshots provide evidence of the GitHub Actions workflow execution and its validation, security scanning and Terraform deployment stages.
+
+### 1. Successful GitHub Actions Workflow
+
+![Successful GitHub Actions workflow](docs/evidence/github-actionProve.png)
+
+### 2. Terraform Plan and Apply
+
+![Terraform Plan and Apply](docs/evidence/ci-cd-plan.png)
+
+### 3. Checkov Security Scan
+
+![Checkov security scan](docs/evidence/checkov.png)
+
+The Checkov scan reported 11 passed checks, 0 failed checks and 3 skipped checks. Terraform Plan reported that no changes were required. Terraform Apply completed with 0 resources added, 0 changed and 0 destroyed.
+
+## Discovery Summary
+
+During this assignment, I discovered how GitHub Actions reusable workflows can help organisations centralise and standardise their CI/CD pipelines. Instead of maintaining 15 separate Terraform deployment workflows, Omni-Tech can store common deployment logic in one central repository and allow individual project repositories to call it using `workflow_call`.
+
+I learned how inputs and secrets allow each project to provide its own configuration while sharing the same deployment process. This approach reduces duplicated code, simplifies maintenance, improves consistency, and makes it easier to enforce security checks such as TFLint and Checkov across multiple projects.
